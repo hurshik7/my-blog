@@ -35,7 +35,9 @@ function App() {
               }}>👍</span> {element.likes}</h4>
               <p>May 11, 2022</p>
               <button onClick={() => {
-                
+                let copy = [...posts];
+                copy.splice(i, 1);
+                setPosts(copy);
               }}>Delete</button>
             </div>
           );
@@ -44,12 +46,13 @@ function App() {
 
       <input onChange={(e) => {
         setInput(e.target.value);
-        console.log(input);
+        //console.log(input);
       }}/>
       <button onClick={() => {
         let postsCopied = [...posts];
         let newPost = {"title": input, "likes": 0};
-        postsCopied.push(newPost);
+        postsCopied.unshift(newPost);
+        //postsCopied.push(newPost);
         setPosts(postsCopied);
       }}>submit!</button>
 
