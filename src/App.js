@@ -13,8 +13,9 @@ function Modal() {
 
 function App() {
 
-  let [titles, setTitles] = useState(["Hello World1", "ABCDE", "HelloWorld3"]);
-  let [likeCount, setLikeCount] = useState(0);
+  let [posts, setPosts] = useState([{"title": "Hello World1", "likes": 0},
+                                    {"title": "Hello World2", "likes": 0},
+                                    {"title": "Hello World3", "likes": 0}]);
   let [modal, setModal] = useState(false);
 
   return (
@@ -23,28 +24,28 @@ function App() {
         <h4>Blogit</h4>
       </div>
       <button onClick={() => {
-        let titlesOrderedBy = [...titles].sort();
-        setTitles(titlesOrderedBy);
+        let sortedPosts = [...posts].sort((a, b) => {
+          return a.title - b.title;
+        });
+        setPosts(sortedPosts);
       }}>Order by title</button>
-      <div className="list">
-        <h4 onClick={() => {
-          setModal(!modal);
-        }}>{titles[0]}  <span onClick={() => {setLikeCount(likeCount + 1)}}>👍</span> {likeCount}</h4>
-        <p>May 11, 2022</p>
-        <button onClick={() => {
-          let titleCopied = [...titles];
-          titleCopied[0] = "Hello React!";
-          setTitles(titleCopied);
-          }}>Change the title to "Hello React"</button>
-      </div>
-      <div className="list">
-        <h4>{titles[1]}</h4>
-        <p>May 12, 2022</p>
-      </div>
-      <div className="list">
-        <h4>{titles[2]}</h4>
-        <p>May 13, 2022</p>
-      </div>
+
+      {
+        posts.map((element, i) => {
+          return (
+            <div className="list">
+              <h4 onClick={() => {
+                setModal(!modal);
+              }}>{posts[i].title}  <span onClick={() => {
+                let postsCopied = [...posts];
+                postsCopied[i].likes = postsCopied[i].likes + 1;
+                setPosts(postsCopied);
+              }}>👍</span> {element.likes}</h4>
+              <p>May 11, 2022</p>
+            </div>
+          );
+        })
+      }
 
       {
         modal ? <Modal /> : null
