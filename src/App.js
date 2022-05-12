@@ -13,9 +13,9 @@ function Modal() {
 
 function App() {
 
-  let [posts, setPosts] = useState([{"title": "Hello World1", "likes": 0},
-                                    {"title": "Hello World2", "likes": 0},
-                                    {"title": "Hello World3", "likes": 0}]);
+  let [posts, setPosts] = useState([{"title": "d", "likes": 0},
+                                    {"title": "a", "likes": 0},
+                                    {"title": "G", "likes": 0}]);
   let [modal, setModal] = useState(false);
 
   return (
@@ -24,9 +24,7 @@ function App() {
         <h4>Blogit</h4>
       </div>
       <button onClick={() => {
-        let sortedPosts = [...posts].sort((a, b) => {
-          return a.title - b.title;
-        });
+        let sortedPosts = [...posts].sort((a, b) => a.title.localeCompare(b.title));
         setPosts(sortedPosts);
       }}>Order by title</button>
 
